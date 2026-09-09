@@ -1,7 +1,3 @@
-
-"use client";
-
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { metrics, profile } from "@/lib/resume";
 
@@ -21,16 +17,16 @@ export function Hero() {
 
     let index = 0;
 
-    const interval = setInterval(() => {
+    const interval = window.setInterval(() => {
       if (index < experienceText.length) {
         setTypedText(experienceText.slice(0, index + 1));
-        index++;
+        index += 1;
       } else {
-        clearInterval(interval);
+        window.clearInterval(interval);
       }
     }, 65);
 
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [flipped]);
 
   return (
@@ -38,7 +34,6 @@ export function Hero() {
       id="top"
       className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
-      {/* Background atmosphere */}
       <div
         aria-hidden
         className="drift-slow pointer-events-none absolute -top-28 -right-24 h-80 w-80 rounded-full bg-purple-soft blur-3xl"
@@ -50,8 +45,7 @@ export function Hero() {
       />
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_190px] lg:gap-16">
-          {/* Main hero content */}
+        <div className="grid items-center gap-12 lg:grid-cols-[1fr_180px] lg:gap-16">
           <div>
             <Reveal>
               <p className="label-caps text-purple">
@@ -98,7 +92,7 @@ export function Hero() {
             </Reveal>
           </div>
 
-          {/* 3D Profile / Experience card */}
+          {/* 3D profile card */}
           <Reveal delay={280}>
             <div className="flex justify-center lg:justify-end">
               <button
@@ -116,22 +110,18 @@ export function Hero() {
                     flipped ? "[transform:rotateY(180deg)]" : ""
                   }`}
                 >
-                  {/* FRONT — IMAGE */}
+                  {/* PHOTO */}
                   <div className="absolute inset-0 overflow-hidden rounded-full border border-border bg-muted shadow-xl [backface-visibility:hidden]">
-                    <Image
+                    <img
                       src="/portfolio_img.png"
                       alt={`${profile.name ?? "Profile"} portrait`}
-                      fill
-                      priority
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="160px"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
 
-                    {/* Subtle purple hover ring */}
                     <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10 transition-all duration-500 group-hover:ring-purple/70" />
                   </div>
 
-                  {/* BACK — TYPING EXPERIENCE */}
+                  {/* EXPERIENCE */}
                   <div className="absolute inset-0 flex items-center justify-center rounded-full border border-purple/40 bg-purple/10 px-5 text-center shadow-xl [backface-visibility:hidden] [transform:rotateY(180deg)]">
                     <span className="font-sans text-sm font-medium tracking-wide text-white">
                       {typedText}
