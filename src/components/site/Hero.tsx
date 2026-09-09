@@ -1,34 +1,8 @@
-import { useEffect, useState } from "react";
 import { metrics, profile } from "@/lib/resume";
 
 import { Reveal } from "./Reveal";
 
-const experienceText = "8+ years of experience";
-
 export function Hero() {
-  const [flipped, setFlipped] = useState(false);
-  const [typedText, setTypedText] = useState("");
-
-  useEffect(() => {
-    if (!flipped) {
-      setTypedText("");
-      return;
-    }
-
-    let index = 0;
-
-    const interval = window.setInterval(() => {
-      if (index < experienceText.length) {
-        setTypedText(experienceText.slice(0, index + 1));
-        index += 1;
-      } else {
-        window.clearInterval(interval);
-      }
-    }, 65);
-
-    return () => window.clearInterval(interval);
-  }, [flipped]);
-
   return (
     <section
       id="top"
@@ -45,7 +19,8 @@ export function Hero() {
       />
 
       <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_180px] lg:gap-16">
+        <div className="grid items-center gap-14 lg:grid-cols-[1fr_300px] lg:gap-20">
+          {/* LEFT — HERO COPY */}
           <div>
             <Reveal>
               <p className="label-caps text-purple">
@@ -92,51 +67,56 @@ export function Hero() {
             </Reveal>
           </div>
 
-          {/* 3D profile card */}
+          {/* RIGHT — PROFILE IMAGE */}
           <Reveal delay={280}>
-            <div className="flex justify-center lg:justify-end">
-              <button
-                type="button"
-                onClick={() => setFlipped((current) => !current)}
-                aria-label={
-                  flipped
-                    ? "Show profile photo"
-                    : "Show years of experience"
-                }
-                className="group relative h-40 w-40 cursor-pointer [perspective:1000px] focus:outline-none focus-visible:ring-2 focus-visible:ring-purple focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+            <div className="flex flex-col items-center lg:items-end">
+              <a
+                href="#experience"
+                aria-label="View experience"
+                className="group relative block"
               >
-                <div
-                  className={`relative h-full w-full transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] ${
-                    flipped ? "[transform:rotateY(180deg)]" : ""
-                  }`}
-                >
-                  {/* PHOTO */}
-                  <div className="absolute inset-0 overflow-hidden rounded-full border border-border bg-muted shadow-xl [backface-visibility:hidden]">
-                    <img
-                      src="/portfolio_img.png"
-                      alt={`${profile.name ?? "Profile"} portrait`}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                <div className="relative h-64 w-64 overflow-hidden rounded-full border border-border bg-muted shadow-2xl transition-all duration-500 group-hover:scale-[1.03] group-hover:border-purple/60 group-hover:shadow-purple/20 sm:h-72 sm:w-72 lg:h-80 lg:w-80">
+                  <img
+                    src="/portfolio_img.png"
+                    alt={`${profile.name ?? "Profile"} portrait`}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
 
-                    <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10 transition-all duration-500 group-hover:ring-purple/70" />
-                  </div>
+                  {/* subtle overlay */}
+                  <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10 transition-all duration-500 group-hover:ring-purple/70" />
 
-                  {/* EXPERIENCE */}
-                  <div className="absolute inset-0 flex items-center justify-center rounded-full border border-purple/40 bg-purple/10 px-5 text-center shadow-xl [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                    <span className="font-sans text-sm font-medium tracking-wide text-white">
-                      {typedText}
-                      <span className="ml-0.5 text-purple animate-pulse">
-                        |
-                      </span>
+                  {/* hover label */}
+                  <div className="absolute inset-x-0 bottom-8 flex justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <span className="rounded-full bg-black/70 px-4 py-2 text-xs font-medium text-white backdrop-blur-md">
+                      View experience →
                     </span>
                   </div>
                 </div>
-              </button>
+              </a>
+
+              {/* Small supporting links */}
+              <div className="mt-6 flex items-center gap-4 text-xs text-muted-foreground">
+                <a
+                  href="#experience"
+                  className="transition-colors hover:text-purple"
+                >
+                  Experience
+                </a>
+
+                <span className="h-1 w-1 rounded-full bg-border" />
+
+                <a
+                  href="#ask"
+                  className="transition-colors hover:text-purple"
+                >
+                  Ask the AI
+                </a>
+              </div>
             </div>
           </Reveal>
         </div>
 
-        {/* Metrics */}
+        {/* METRICS */}
         <div className="mt-20 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-border pt-10 lg:grid-cols-4">
           {metrics.map((m, i) => (
             <Reveal key={m.label} delay={i * 90}>
