@@ -16,7 +16,7 @@ export function Profile() {
         <SectionHeading eyebrow="Career profile" title="A product marketer who lands the message" />
         <div className="mt-12 grid gap-12 lg:grid-cols-[1.35fr_1fr]">
           <Reveal>
-            <p className="font-display text-2xl leading-snug text-ink sm:text-[1.75rem]">
+            <p className="font-['Caveat'] text-xl leading-relaxed text-ink sm:text-2xl">
               {profile.summary}
             </p>
           </Reveal>
