@@ -29,7 +29,7 @@ export function Hero() {
             </Reveal>
 
             <Reveal delay={80}>
-              <h1 className="mt-5 text-5xl leading-[0.95] tracking-tight text-ink sm:text-7xl lg:text-[5.5rem]">
+              <h1 className="mt-5 text-4xl leading-[1] tracking-tight text-ink sm:text-5xl lg:text-[3.75rem]">
                 Turning complex B2B SaaS
                 <br />
                 into{" "}
